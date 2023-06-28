@@ -49,7 +49,7 @@ const NavBar = () => {
       >
         <i className="fas fa-heart"></i>Feed
       </NavLink>
-      <NavLink className={styles.NavLink} to="/" onclick={handleSignOut}>
+      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>Sign out
       </NavLink>
       <NavLink
