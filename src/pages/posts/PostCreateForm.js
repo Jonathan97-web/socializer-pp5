@@ -1,21 +1,27 @@
-import React, { useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
+import React, { useRef, useState } from "react";
 
-import Alert from "react-bootstrap/Alert"
 import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Upload from "../../assets/upload.png";
+import Alert from "react-bootstrap/Alert";
+import Image from "react-bootstrap/Image";
+
 import Asset from "../../components/Asset";
+
+import Upload from "../../assets/upload.png";
+
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
+import { useHistory } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
+
 function PostCreateForm() {
+  useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
   const [postData, setPostData] = useState({
@@ -58,7 +64,7 @@ function PostCreateForm() {
       history.push(`/posts/${data.id}`);
     } catch (err) {
       console.log(err);
-      if (err.response?.stauts !== 401) {
+      if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
     }
@@ -80,10 +86,11 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
+
       <Form.Group>
         <Form.Label>Content</Form.Label>
         <Form.Control
-          type="textarea"
+          as="textarea"
           rows={6}
           name="content"
           value={content}
@@ -95,6 +102,7 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
+
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
         onClick={() => history.goBack()}
@@ -136,7 +144,7 @@ function PostCreateForm() {
                 >
                   <Asset
                     src={Upload}
-                    message="Click or tap to upload an image."
+                    message="Click or tap to upload an image"
                   />
                 </Form.Label>
               )}
@@ -149,10 +157,11 @@ function PostCreateForm() {
               />
             </Form.Group>
             {errors?.image?.map((message, idx) => (
-            <Alert variant="warning" key={idx}>
-            {message}
-            </Alert>
-      ))}
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
+
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>
