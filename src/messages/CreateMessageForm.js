@@ -1,14 +1,10 @@
-// React imports
 import { useState } from "react";
-// Bootstrap imports
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-// CSS imports
 import appStyles from "../App.module.css";
 import btnStyles from "../styles/Button.module.css";
-// Component imports
 import { axiosRes } from "../api/axiosDefaults";
 import AlertMessages from "../components/AlertMessages";
 
