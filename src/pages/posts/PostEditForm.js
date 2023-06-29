@@ -21,8 +21,9 @@ function PostEditForm() {
     title: "",
     content: "",
     image: "",
+    topic: "",
   });
-  const { title, content, image } = postData;
+  const { title, content, image, topic } = postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -32,9 +33,11 @@ function PostEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
-        const { title, content, image, is_owner } = data;
+        const { title, content, image, is_owner, topic } = data;
 
-        is_owner ? setPostData({ title, content, image }) : history.push("/");
+        is_owner
+          ? setPostData({ title, content, image, topic })
+          : history.push("/");
       } catch (err) {
         console.log(err);
       }
@@ -65,6 +68,7 @@ function PostEditForm() {
 
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("topic", topic);
 
     if (imageInput?.current?.files[0]) {
       formData.append("image", imageInput.current.files[0]);
@@ -108,6 +112,27 @@ function PostEditForm() {
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+      <Form.Group controlId="topic">
+        <Form.Label>Topic</Form.Label>
+        <Form.Control
+          as="select"
+          name="topic"
+          value={topic}
+          onChange={handleChange}
+        >
+          <option>Sport</option>
+          <option>Gaming</option>
+          <option>Food</option>
+          <option>Traveling</option>
+          <option>Home</option>
+          <option>Activities</option>
+        </Form.Control>
+      </Form.Group>
+      {errors?.topic?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
