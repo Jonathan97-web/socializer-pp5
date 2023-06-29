@@ -25,11 +25,14 @@ function PostsPage({ message, filter = "" }) {
   const currentUser = useCurrentUser();
 
   const [query, setQuery] = useState("");
+  const [topic, setTopic] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);
+        const { data } = await axiosReq.get(
+          `/posts/?${filter}query=${query}&topic=${topic}`
+        );
         setPosts(data);
         setHasLoaded(true);
       } catch (err) {
@@ -43,7 +46,7 @@ function PostsPage({ message, filter = "" }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname, currentUser]);
+  }, [filter, query, pathname, topic, currentUser]);
 
   return (
     <Row className="h-100">
@@ -55,12 +58,31 @@ function PostsPage({ message, filter = "" }) {
           onSubmit={(event) => event.preventDefault()}
         >
           <Form.Control
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
             placeholder="Search posts"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
+          <Form.Control
+            size="sm"
+            // className="mr-sm-2"
+            as="select"
+            placeholder="Choose..."
+            value={topic}
+            onChange={(event) => setTopic(event.target.value)}
+          >
+            <option key="blankChoice" hidden value>
+              {" "}
+              Topic{" "}
+            </option>
+            <option>Sport</option>
+            <option>Gaming</option>
+            <option>Food</option>
+            <option>Traveling</option>
+            <option>Home</option>
+            <option>Activities</option>
+          </Form.Control>
         </Form>
 
         {hasLoaded ? (
