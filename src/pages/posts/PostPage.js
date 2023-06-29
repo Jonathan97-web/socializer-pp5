@@ -8,7 +8,7 @@ import Post from "../posts/Post";
 import Comment from "../comments/Comment";
 import Asset from "../../components/Asset"
 import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData } from "../../utils";
+import { fetchMoreData } from "../../utils/utils";
 import appStyles from "../../App.module.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
