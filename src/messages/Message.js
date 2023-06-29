@@ -29,7 +29,7 @@ const Message = (props) => {
     <div>
       <hr />
       <Media>
-        <Link to={`/profiles/${profile_id}`}>
+        <Link to={`/profiles/${profile_id}/`}>
           <Avatar src={profile_image} height={45} />
         </Link>
         <Media.Body>
