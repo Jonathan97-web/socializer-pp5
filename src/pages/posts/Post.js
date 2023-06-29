@@ -30,7 +30,6 @@ const Post = (props) => {
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
-  // Variables for displaying the delete post modal popup
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
