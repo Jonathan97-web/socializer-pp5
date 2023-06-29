@@ -28,8 +28,9 @@ function PostCreateForm() {
     title: "",
     content: "",
     image: "",
+    topic: "",
   });
-  const { title, content, image } = postData;
+  const { title, content, image, topic } = postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -58,6 +59,7 @@ function PostCreateForm() {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", imageInput.current.files[0]);
+    formData.append("topic", topic);
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
@@ -98,6 +100,28 @@ function PostCreateForm() {
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group controlId="topic">
+        <Form.Label>Topic</Form.Label>
+        <Form.Control
+          as="select"
+          name="topic"
+          value={topic}
+          onChange={handleChange}
+        >
+          <option>Sport</option>
+          <option>Gaming</option>
+          <option>Food</option>
+          <option>Traveling</option>
+          <option>Home</option>
+          <option>Activities</option>
+        </Form.Control>
+      </Form.Group>
+      {errors?.topic?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
