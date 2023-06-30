@@ -172,14 +172,20 @@ function ProfilePage() {
         <Col className="py-2 p-0 p-lg-2" lg={8}>
           <PopularProfiles mobile />
           {currentUser && !is_owner && (
-            <Container className={appStyles.Content}>
-              <CreateMessageForm mobile sendToProfile={profile?.owner} profileId={profile?.id} />
+            <Container className={`${appStyles.Content} d-lg-none`}>
+              <CreateMessageForm
+                mobile
+                sendToProfile={profile?.owner}
+                profileId={profile?.id}
+              />
             </Container>
           )}
           {currentUser &&
             is_owner &&
             (hasLoaded ? (
-              <Container className={`${appStyles.Content}d-lg-none mb-3`}>
+              <Container
+                className={`${appStyles.Content}d-md-block d-lg-none mb-3`}
+              >
                 {mainProfileMessages}
               </Container>
             ) : (
