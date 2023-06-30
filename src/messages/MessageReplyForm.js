@@ -1,6 +1,4 @@
-// React imports
 import { useState } from "react";
-// Bootstrap imports
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
@@ -8,9 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ModalFooter from "react-bootstrap/ModalFooter";
-// CSS imports
 import btnStyles from "../styles/Button.module.css";
-// Component imports
 import { axiosRes } from "../api/axiosDefaults";
 
 const MessageReplyForm = (props) => {
