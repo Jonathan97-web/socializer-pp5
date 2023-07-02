@@ -47,7 +47,7 @@ const Post = (props) => {
   const handlePostDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
-      history.goBack();
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
@@ -84,6 +84,7 @@ const Post = (props) => {
       console.log(err);
     }
   };
+
   return (
     <>
       <Card className={styles.Post}>
