@@ -26,7 +26,7 @@ function App() {
   return (
     <div className={styles.App}>
       <NavBar />
-      <Container className={`${styles.Main} m-3`}>
+      <Container className={`${styles.Main}`}>
         <DarkMode />
         <Switch>
           <Route
