@@ -1,4 +1,4 @@
-# **Happening**
+# **Socializer - PP5**
 
 Socializer was created to be able to share interests and hobbies with other people around the world at the same time you could use it as a productivity application with the notes functionality. You can also message and interact with other users.
 
@@ -492,14 +492,12 @@ It is possible to make an independent copy of a GitHub Repository by forking the
 
 A Git clone creates a linked copy of the project that will continue to synchronize with the original repository. In order to create a clone, you can click on the 'Code' button inside the selected repository and then select the 'Clone' option from the dropdown list.
 
-![Clone](images/clone.jpg)
-
 [Back to top](#table-of-contents)
 
 # Credits
 
 - The mockup images on the website are from the moment's walkthrough currently
-- The messaging and topics function are primarily from [QuiltingCode](https://github.com/quiltingcode) I have remade them a bit to fit my purpose.
+- The messaging and topics function are primarily from [QuiltingCode](https://github.com/quiltingcode) I have remade them a bit to fit my purpose, the basic readme layout is also from their PP5.
 - The darkmode I found a tutorial on youtube [Darkmode react tutorial](https://www.youtube.com/watch?v=Uz35Qiia84g)
 
 # Acknowledgements
