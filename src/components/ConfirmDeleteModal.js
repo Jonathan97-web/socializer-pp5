@@ -8,6 +8,7 @@ const ConfirmDeleteModal = (props) => {
     handleClose,
     handleCommentDelete,
     handlePostDelete,
+    handleNoteDelete,
     type,
     message,
   } = props;
@@ -48,6 +49,24 @@ const ConfirmDeleteModal = (props) => {
             <Button
               className={`${btnStyles.Button} ${btnStyles.Delete}`}
               onClick={handlePostDelete}
+            >
+              Confirm Deletion
+            </Button>
+          </>
+        )}
+
+        {/* Delete Modal for deleting a note */}
+        {type === "note" && (
+          <>
+            <Button
+              className={`${btnStyles.Button} ${btnStyles.Modal}`}
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              className={`${btnStyles.Button} ${btnStyles.Delete}`}
+              onClick={handleNoteDelete}
             >
               Confirm Deletion
             </Button>
