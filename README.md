@@ -106,8 +106,6 @@ CHAT
 | As a Logged in User | I can view messages in my profile page so that I can read messages other users have sent me | &check; |
 | As a Logged in User | I can send a message to another user so that I can ask a question about an post they are hosting | &check; |
 
-[Back to top](#table-of-contents)
-
 ## Site Structure
 
 Socializer is split up in two sections ,for a logged in user they see the logged in sections. A logged out user can see posts but not interact with them and they can sign in or sign up.
@@ -162,8 +160,6 @@ There are two main react components which make up the Home posts page.
 The popular profiles component is a permanent feature across the entire site. It appears at the top of all pages. This component uses a filter to order all site users by followers count from highest to lowest. The users with the highest follower count are determined to be the most popular profiles and the top six are displayed within the popular profiles component.
 
 # **Features Left to Implement**
-
-[Back to top](#table-of-contents)
 
 # **Technologies Used - Frontend**
 
