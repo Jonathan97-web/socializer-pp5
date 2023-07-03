@@ -3,6 +3,9 @@ import NavBar from "./components/NavBar";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
+import NotesCreateForm from "../src/pages/notes/NotesCreateForm";
+import NoteEditForm from "./pages/notes/NotesEditForm";
+import NotesPage from "./pages/notes/NotesPage";
 import SignUpForm from "../src/pages/auth/SignUpForm";
 import SignInForm from "../src/pages/auth/SignInForm";
 import PostCreateForm from "./pages/posts/PostCreateForm";
@@ -23,7 +26,7 @@ function App() {
   return (
     <div className={styles.App}>
       <NavBar />
-      <Container className={styles.Main}>
+      <Container className={`${styles.Main} m-3`}>
         <DarkMode />
         <Switch>
           <Route
@@ -59,6 +62,13 @@ function App() {
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+          <Route
+            exact
+            path="/notes/create"
+            render={() => <NotesCreateForm />}
+          />
+          <Route exact path="/notes/" render={() => <NotesPage />} />
+          <Route exact path="/notes/:id/edit" render={() => <NoteEditForm />} />
           <Route
             exact
             path="/profiles/:id/edit/username"
