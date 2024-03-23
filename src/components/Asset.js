@@ -1,5 +1,5 @@
 import React from "react";
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner } from "react-bootstrap/esm";
 import styles from "../styles/Asset.module.css";
 
 const Asset = ({ spinner, src, message }) => {

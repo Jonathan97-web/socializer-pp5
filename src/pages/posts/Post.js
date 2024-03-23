@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/Post.module.css";
 import Avatar from "../../components/Avatar";
@@ -8,6 +8,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import { Container } from "react-bootstrap/esm";
 
 const Post = (props) => {
   const {
@@ -28,7 +29,7 @@ const Post = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
@@ -41,13 +42,13 @@ const Post = (props) => {
   const handleClose = () => setShow(false);
 
   const handleEdit = () => {
-    history.push(`/posts/${id}/edit`);
+    navigate(`/posts/${id}/edit`);
   };
 
   const handlePostDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
-      history.push("/");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -89,7 +90,7 @@ const Post = (props) => {
     <>
       <Card className={styles.Post}>
         <Card.Body>
-          <Image className="align-items-center justify-content-between">
+          <Container className="align-items-center justify-content-between">
             <Link to={`/profiles/${profile_id}`}>
               <Avatar src={profile_image} height={55} />
               {owner}
@@ -100,10 +101,10 @@ const Post = (props) => {
                 <MoreDropdown handleEdit={handleEdit} handleShow={handleShow} />
               )}
             </div>
-          </Image>
+          </Container>
         </Card.Body>
         <Link to={`/posts/${id}`}>
-          <Card.Img src={image} alt={title} />
+          <Card.Img className="img" src={image} alt={title} />
         </Link>
         <Card.Body>
           {title && <Card.Title className="text-center">{title}</Card.Title>}

@@ -5,7 +5,7 @@ import MessageReplyForm from "./MessageReplyForm";
 import AlertMessages from "../components/AlertMessages";
 import Button from "react-bootstrap/Button";
 import btnStyles from "../styles/Button.module.css";
-import { CardBody, Image } from "react-bootstrap/esm";
+import { CardBody, Card } from "react-bootstrap/esm";
 
 const Message = (props) => {
   const { profile_id, profile_image, created_at, message, owner } = props;
@@ -28,7 +28,7 @@ const Message = (props) => {
   return (
     <div>
       <hr />
-      <Image>
+      <Card>
         <Link to={`/profiles/${profile_id}/`}>
           <Avatar src={profile_image} height={45} />
         </Link>
@@ -43,7 +43,7 @@ const Message = (props) => {
         <Button className={`${btnStyles.Reply} btn-sm`} onClick={handleShow}>
           Reply
         </Button>
-      </Image>
+      </Card>
       <AlertMessages
         showAlert={showAlert}
         setShowAlert

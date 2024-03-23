@@ -6,6 +6,10 @@
   text-align: center;
 }
 
+.img {
+  object-fit: contain;
+}
+
 .Post figure,
 h5 {
   margin: 0 0;

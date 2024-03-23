@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Card, Image } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import { CardBody } from "react-bootstrap/esm";
 
 const Notes = (props) => {
   const { id, owner, title, content, updated_at } = props;
@@ -41,14 +42,12 @@ const Notes = (props) => {
     <>
       {is_owner && (
         <Card className={styles.Post}>
-          <Card.Body>
-            <Image className="align-items-center justify-content-between">
-              <div className="d-flex align-items-center">
-                <span>{updated_at}</span>
-                <MoreDropdown handleEdit={handleEdit} handleShow={handleShow} />
-              </div>
-            </Image>
-          </Card.Body>
+          <CardBody className="align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <span>{updated_at}</span>
+              <MoreDropdown handleEdit={handleEdit} handleShow={handleShow} />
+            </div>
+          </CardBody>
 
           <Card.Body>
             {title && <Card.Title className="text-center">{title}</Card.Title>}

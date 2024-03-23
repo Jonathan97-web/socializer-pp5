@@ -17,7 +17,7 @@ const NotesCreateForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setNoteData({
@@ -30,9 +30,11 @@ const NotesCreateForm = () => {
     event.preventDefault();
     try {
       await axios.post("/notes/", noteData);
-      history.push("/");
+      navigate("/");
     } catch (err) {
       setErrors(err.response?.data);
+      console.log(noteData);
+      console.log(err.response);
     }
   };
 

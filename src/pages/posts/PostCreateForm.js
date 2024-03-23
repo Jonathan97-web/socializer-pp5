@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import Image from "react-bootstrap/Image";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Container,
+  Alert,
+  Image,
+} from "react-bootstrap";
 
 import Asset from "../../components/Asset";
 
@@ -33,7 +35,7 @@ function PostCreateForm() {
   const { title, content, image, topic } = postData;
 
   const imageInput = useRef(null);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setPostData({
@@ -63,7 +65,7 @@ function PostCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
-      history.push(`/posts/${data.id}`);
+      navigate(`/posts/${data.id}`);
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
@@ -73,7 +75,7 @@ function PostCreateForm() {
   };
 
   const textFields = (
-    <div className="text-center">
+    <>
       <Form.Group>
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -129,14 +131,14 @@ function PostCreateForm() {
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
+        onClick={() => navigate.goBack()}
       >
         cancel
       </Button>
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
         create
       </Button>
-    </div>
+    </>
   );
 
   return (
