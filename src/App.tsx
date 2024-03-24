@@ -21,14 +21,17 @@ import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
 import DarkMode from "./components/DarkMode";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
 
   return (
     <div className={styles.App}>
       <NavBar />
+      <ToastContainer />
       <Container className={`${styles.Main}`}>
         <DarkMode />
         <Routes>

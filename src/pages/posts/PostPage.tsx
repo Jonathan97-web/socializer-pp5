@@ -18,7 +18,7 @@ import PopularProfiles from "../profiles/PopularProfiles";
 function PostPage(): React.ReactElement {
   const { id } = useParams<{ id: any }>();
   const [post, setPost] = useState<{ results: any[] }>({ results: [] });
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const profile_image = currentUser?.profile_image;
   const [comments, setComments] = useState<{ results: any[]; next: any }>({
     results: [],

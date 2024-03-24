@@ -39,9 +39,13 @@ function SignInForm() {
     e.preventDefault();
     try {
       const response = await axios.post("/dj-rest-auth/login/", signInData);
-      setCurrentUser(response.data.user);
+      if (setCurrentUser) {
+        setCurrentUser(response.data.user);
+        console.log(response.data.user);
+      }
       if (typeof response.data.access === "string") {
         setTokenTimestamp(response.data.access);
+        console.log(response.data.access);
       } else {
         console.error("Token is not a string:", response.data.access);
       }

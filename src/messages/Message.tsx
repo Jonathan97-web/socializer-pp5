@@ -31,7 +31,7 @@ const Message = ({ ...props }) => {
       <hr />
       <Card>
         <Link to={`/profiles/${profile_id}/`}>
-          <Avatar src={profile_image} height={45} text="" />
+          <Avatar src={profile_image} height={70} text="" />
         </Link>
         <CardBody>
           <span>

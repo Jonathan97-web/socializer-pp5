@@ -10,10 +10,7 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
 import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -24,8 +21,7 @@ interface ErrorsState {
 }
 
 const ProfileEditForm = () => {
-  const { currentUser } = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
+  const currentUser = useCurrentUser();
   const { id } = useParams();
   const navigate = useNavigate();
   const imageFile = useRef<HTMLInputElement>(null);
@@ -76,8 +72,7 @@ const ProfileEditForm = () => {
     }
 
     try {
-      const response = await axiosReq.put(`/profiles/${id}/`, formData);
-      setCurrentUser(response.data);
+      await axiosReq.put(`/profiles/${id}/`, formData);
       navigate(-1);
     } catch (err: any) {
       console.log(err);
@@ -133,14 +128,17 @@ const ProfileEditForm = () => {
               ))}
               <div>
                 <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
+                  className={`btn btn-success my-auto`}
                   htmlFor="image-upload"
+                  onClick={() => imageFile.current?.click()} // Add this line
                 >
                   Change the image
                 </Form.Label>
               </div>
               <Form.Control
                 id="image-upload"
+                type="file"
+                style={{ display: "none" }}
                 ref={imageFile}
                 accept="image/*"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

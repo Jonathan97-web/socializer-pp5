@@ -11,7 +11,7 @@ import { CardBody } from "react-bootstrap/esm";
 const Notes = (props: any) => {
   const { id, owner, title, content, updated_at } = props;
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const navigate = useNavigate();
 

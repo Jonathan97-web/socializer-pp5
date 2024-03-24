@@ -4,3 +4,4 @@ declare module "*assets";
 declare module "*.png";
 declare module "*.svg";
 declare module "*./reportWebVitals";
+declare module "*./toastify";

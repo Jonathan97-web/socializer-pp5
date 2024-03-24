@@ -11,7 +11,7 @@ const Profile = (props: any) => {
   const { profile, mobile, imageSize = 55 } = props;
   const { id, following_id, image, owner } = profile;
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
   const profileData = useSetProfileData();

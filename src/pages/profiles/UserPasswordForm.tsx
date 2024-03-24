@@ -22,7 +22,7 @@ interface Errors {
 const UserPasswordForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
 
   const [userData, setUserData] = useState({
     new_password1: "",

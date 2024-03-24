@@ -38,7 +38,7 @@ function ProfilePage() {
     next: null,
   });
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const { id } = useParams();
 
   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
@@ -47,8 +47,6 @@ function ProfilePage() {
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
   const [isMounted, setIsMounted] = useState(false);
-
-  console.log(profileMessages);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +76,7 @@ function ProfilePage() {
   const mainProfile = (
     <>
       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-      <Row noGutters className="px-3 text-center">
+      <Row className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image
             className={styles.ProfileImage}

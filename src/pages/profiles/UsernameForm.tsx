@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -16,6 +15,7 @@ import {
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Errors {
   username: string[];
@@ -28,9 +28,8 @@ const UsernameForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
   useEffect(() => {
     if (currentUser && currentUser.profile_id?.toString() === id) {
       setUsername(currentUser.username);
@@ -45,7 +44,16 @@ const UsernameForm = () => {
       const response = await axiosRes.put("/dj-rest-auth/user/", {
         username,
       });
-      setCurrentUser(response.data);
+      if (setCurrentUser) {
+        setCurrentUser(response.data);
+        navigate(`/profiles/${id}`);
+        setTimeout(() => {
+          toast.success("Username updated successfully", {
+            position: "top-left",
+            autoClose: 3000,
+          });
+        }, 1);
+      }
     } catch (err: any) {
       console.log(err);
       setErrors(err.response?.data);
@@ -53,40 +61,42 @@ const UsernameForm = () => {
   };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
-        <Container className={appStyles.Content}>
-          <Form onSubmit={handleSubmit} className="my-2">
-            <Form.Group>
-              <Form.Label>Change username</Form.Label>
-              <Form.Control
-                placeholder="username"
-                type="text"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </Form.Group>
-            {errors?.username?.map((message: any, idx: any) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => navigate(-1)}
-            >
-              cancel
-            </Button>
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              type="submit"
-            >
-              save
-            </Button>
-          </Form>
-        </Container>
-      </Col>
-    </Row>
+    <>
+      <Row>
+        <Col className="py-2 mx-auto text-center" md={6}>
+          <Container className={appStyles.Content}>
+            <Form onSubmit={handleSubmit} className="my-2">
+              <Form.Group>
+                <Form.Label>Change username</Form.Label>
+                <Form.Control
+                  placeholder="username"
+                  type="text"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </Form.Group>
+              {errors?.username?.map((message: any, idx: any) => (
+                <Alert key={idx} variant="warning">
+                  {message}
+                </Alert>
+              ))}
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Blue}`}
+                onClick={() => navigate(-1)}
+              >
+                cancel
+              </Button>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Blue}`}
+                type="submit"
+              >
+                save
+              </Button>
+            </Form>
+          </Container>
+        </Col>
+      </Row>
+    </>
   );
 };
 

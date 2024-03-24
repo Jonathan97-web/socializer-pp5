@@ -60,6 +60,7 @@ export function setTokenTimestamp(token: any) {
   try {
     const decodedToken = jwtDecode(token);
     localStorage.setItem("tokenTimestamp", String(decodedToken.exp));
+    console.log("Token timestamp set:", decodedToken.exp);
   } catch (error) {
     console.error("Error decoding token:", error);
   }

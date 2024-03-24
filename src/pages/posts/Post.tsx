@@ -27,7 +27,7 @@ const Post = (props: any) => {
     setPosts,
   } = props;
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const navigate = useNavigate();
 

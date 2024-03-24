@@ -1,39 +1,18 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { axiosRes, axiosReq } from "../api/axiosDefaults";
 import { useNavigate } from "react-router-dom";
 import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
 
-type User = {
-  profile_id: any;
-  profile_image: any;
-  username: any;
-};
-
-type SetCurrentUserType = React.Dispatch<React.SetStateAction<User | null>>;
-
-export const CurrentUserContext = createContext({
-  currentUser: null as User | null,
-});
-export const SetCurrentUserContext = React.createContext<SetCurrentUserType>(
-  () => {}
-);
+export const CurrentUserContext = createContext({} as any);
+export const SetCurrentUserContext = createContext({} as any);
 
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
-export const CurrentUserProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+export const CurrentUserProvider = ({ children }: { children: any }) => {
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   const handleMount = async () => {
@@ -76,26 +55,24 @@ export const CurrentUserProvider = ({
     axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
-        if (err.response?.status === 401) {
-          try {
-            await axios.post("/dj-rest-auth/token/refresh/");
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                navigate("/signin");
-              }
-              return null;
-            });
-          }
-          return axios(err.config);
+        try {
+          await axios.post("/dj-rest-auth/token/refresh/");
+        } catch (err) {
+          setCurrentUser((prevCurrentUser) => {
+            if (prevCurrentUser) {
+              navigate("/signin");
+            }
+            return null;
+          });
+          return Promise.reject(err);
         }
-        return Promise.reject(err);
+        return axios(err.config);
       }
     );
   }, [navigate]);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser: currentUser }}>
+    <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {children}
       </SetCurrentUserContext.Provider>

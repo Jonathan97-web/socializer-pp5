@@ -23,7 +23,7 @@ const Comment = (props: any) => {
   } = props;
 
   const [showEditForm, setShowEditForm] = useState(false);
-  const { currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
   const handleCommentDelete = async () => {
