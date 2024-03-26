@@ -23,6 +23,7 @@ import DarkMode from "./components/DarkMode";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ChatBox from "./components/ChatBox";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -83,6 +84,7 @@ function App() {
           <Route element={<NotFound />} />
         </Routes>
       </Container>
+      <ChatBox />
     </div>
   );
 }
