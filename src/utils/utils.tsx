@@ -15,7 +15,37 @@ export const fetchMoreData = async (resource: any, setResource: any) => {
     }));
   } catch (err) {}
 };
+// Helper function to update the profile data (send friend request)
+export const sendFriendRequestHelper = (
+  profile: any,
+  clickedProfile: any,
+  friend_id: any
+) => {
+  return profile.id === clickedProfile.id
+    ? { ...profile, friend_id }
+    : profile
+    ? { ...profile }
+    : profile;
+};
+// Helper function to update the profile data (remove friend)
+export const acceptFriendRequestHelper = (
+  profile: any,
+  acceptedFriendId: any
+) => {
+  return {
+    ...profile,
+    friends: [...profile.friends, acceptedFriendId],
+  };
+};
+// Helper function to update the profile data (remove friend)
+export const removeFriendHelper = (profile: any, removedFriendId: any) => {
+  return {
+    ...profile,
+    friends: profile.friends.filter((id: any) => id !== removedFriendId),
+  };
+};
 
+// Helper function to update the profile data
 export const followHelper = (
   profile: any,
   clickedProfile: any,
