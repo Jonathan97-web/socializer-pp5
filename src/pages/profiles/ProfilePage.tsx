@@ -75,8 +75,8 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
-      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row className="px-3 text-center">
+        {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
         <Col lg={3} className="text-lg-left">
           <Image
             className={styles.ProfileImage}
@@ -116,7 +116,7 @@ function ProfilePage() {
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
                 onClick={() => handleFollow(profile)}
               >
-                follow
+                Follow
               </Button>
             ))}
         </Col>
