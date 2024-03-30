@@ -11,13 +11,15 @@ const container = document.getElementById("root");
 if (container) {
   const root = createRoot(container);
   root.render(
-    <Router>
-      <CurrentUserProvider>
-        <ProfileDataProvider>
-          <App />
-        </ProfileDataProvider>
-      </CurrentUserProvider>
-    </Router>
+    <React.StrictMode>
+      <Router>
+        <CurrentUserProvider>
+          <ProfileDataProvider>
+            <App />
+          </ProfileDataProvider>
+        </CurrentUserProvider>
+      </Router>
+    </React.StrictMode>
   );
 } else {
   throw new Error("Root element not found");

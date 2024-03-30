@@ -8,15 +8,22 @@ import Avatar from "./Avatar";
 
 const ChatBox = () => {
   const [show, isShown] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [profileMessages, setProfileMessages] = useState({
+    results: [] as any,
+    next: null,
+  });
+  const [profiles, setProfiles] = useState({
+    results: [] as any,
+    next: null,
+  });
+
+  const [chat, setChat] = useState({
     results: [] as any,
     next: null,
   });
 
   const currentUser = useCurrentUser();
   const id = currentUser?.pk;
-  //   const is_owner = currentUser?.username === profile?.owner;
 
   const handleShow = () => {
     if (show) {
@@ -26,22 +33,35 @@ const ChatBox = () => {
     }
   };
 
-  const handleUserSelect = (userId: any) => {
-    setSelectedUser(userId);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [{ data: profileMessages }] = await Promise.all([
-          axiosReq.get(`/chat/?profile=${id}`),
+        const responses = await Promise.all([
+          axiosReq.get(`/chat/messages/`),
+          axiosReq.get(`/profiles/`),
+          axiosReq.get(`/chat/`),
         ]);
+        const profileMessages = responses[0].data;
+        const profiles = responses[1].data;
+        const chats = responses[2].data;
         setProfileMessages(profileMessages);
-      } catch (err) {}
+        setProfiles(profiles);
+        setChat(chats);
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchData();
   }, [id]);
-  console.log(profileMessages);
+
+  const createChat = async () => {
+    try {
+      const response = await axiosReq.post(`/chat/${id}`);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const Row = ({
     index,
@@ -53,12 +73,44 @@ const ChatBox = () => {
     data: any;
   }) => {
     const message = data[index];
+    const isOwner = message.owner === id;
     return (
       <ListItem className="d-flex gap-2" style={style} key={index}>
-        <Avatar text="" height={40} src={message.profile_image} />
-        <div>{message.owner}</div>
-        <br></br>
-        <div>{message.message}</div>
+        {isOwner ? (
+          <div>
+            <div>{message.owner}</div>
+            <div>{message.message}</div>
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </ListItem>
+    );
+  };
+
+  const Row2 = ({
+    index,
+    style,
+    data,
+  }: {
+    index: any;
+    style: any;
+    data: any;
+  }) => {
+    const profiles = data[index];
+    return (
+      <ListItem className="d-flex gap-2" style={style} key={index}>
+        <div onClick={() => createChat()}>
+          <Avatar text="" height={40} src={profiles.image} />
+        </div>
+        <div>
+          {profiles.results}
+          <a href={`/profiles/${profiles.id}`}>{profiles.owner}</a>
+          <hr></hr>
+        </div>
+        <div>
+          <hr></hr>
+        </div>
       </ListItem>
     );
   };
@@ -89,6 +141,16 @@ const ChatBox = () => {
                 itemData={profileMessages.results}
               >
                 {Row}
+              </FixedSizeList>
+
+              <FixedSizeList
+                height={400}
+                width={300}
+                itemSize={46}
+                itemCount={profiles.results.length}
+                itemData={profiles.results}
+              >
+                {Row2}
               </FixedSizeList>
             </Box>
             <input

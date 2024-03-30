@@ -5,6 +5,7 @@ type AvatarProps = {
   src: string;
   height: number;
   text: string;
+  onClick?: () => void;
 };
 
 const Avatar: React.FC<AvatarProps> = ({ src, height = 45, text }) => {
